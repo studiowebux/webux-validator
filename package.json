@@ -1,0 +1,14 @@
+{
+  "name": "webux-validator",
+  "version": "1.0.0",
+  "description": "Validate the content from the req",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Studio Webux S.E.N.C",
+  "license": "SEE LICENSE IN license.txt",
+  "dependencies": {
+    "webux-errorhandler": "^1.1.0"
+  }
+}
