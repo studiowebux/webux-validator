@@ -6,7 +6,7 @@
 // ╚═╝     ╚═╝╚═╝╚═════╝ ╚═════╝ ╚══════╝╚══════╝ ╚══╝╚══╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝
 
 /**
- * File: validator.js
+ * File: index.js
  * Author: Tommy Gingras
  * Date: 2019-02-16
  * License: All rights reserved Studio Webux S.E.N.C 2015-Present
@@ -14,9 +14,19 @@
 
 "use strict";
 
-const errorHandler = require("webux-errorhandler");
+const { errorHandler } = require("webux-errorhandler");
 
+/**
+ * this function check the body
+ * @param {Object} schema The JOI schema, mandatory
+ * @return {Function} return a middleware function
+ */
 const Body = schema => {
+  if (!schema || typeof schema !== "object") {
+    throw new Error(
+      "The schema parameter is required and must be a JOI object"
+    );
+  }
   return (req, res, next) => {
     schema.validate(
       req.body,
@@ -26,7 +36,12 @@ const Body = schema => {
       err => {
         if (err) {
           return next(
-            errorHandler("Schema Validator", 400, err.details[0].message, err)
+            errorHandler(
+              400,
+              err.details[0].message,
+              { type: "Body Schema Validator" },
+              err
+            )
           );
         }
         return next();
@@ -35,7 +50,17 @@ const Body = schema => {
   };
 };
 
+/**
+ * this function check the params id
+ * @param {Object} schema The JOI schema, mandatory
+ * @return {Function} return a middleware function
+ */
 const MongoID = schema => {
+  if (!schema || typeof schema !== "object") {
+    throw new Error(
+      "The schema parameter is required and must be a JOI object"
+    );
+  }
   return (req, res, next) => {
     schema.validate(
       req.params.id,
@@ -45,7 +70,12 @@ const MongoID = schema => {
       err => {
         if (err) {
           return next(
-            errorHandler("Schema Validator", 400, err.details[0].message, err)
+            errorHandler(
+              400,
+              err.details[0].message,
+              { type: "MongoID Schema Validator" },
+              err
+            )
           );
         }
         return next();
@@ -54,7 +84,17 @@ const MongoID = schema => {
   };
 };
 
+/**
+ * this function check the params id_url to check if it is a valid URL or mongo ID
+ * @param {Object} schema The JOI schema, mandatory
+ * @return {Function} return a middleware function
+ */
 const MongoIdOrURL = schema => {
+  if (!schema || typeof schema !== "object") {
+    throw new Error(
+      "The schema parameter is required and must be a JOI object"
+    );
+  }
   return (req, res, next) => {
     schema.validate(
       req.params.id_url,
@@ -64,7 +104,12 @@ const MongoIdOrURL = schema => {
       err => {
         if (err) {
           return next(
-            errorHandler("Schema Validator", 400, err.details[0].message, err)
+            errorHandler(
+              400,
+              err.details[0].message,
+              { type: "MongoIDOrURL Schema Validator" },
+              err
+            )
           );
         }
         return next();
@@ -73,7 +118,17 @@ const MongoIdOrURL = schema => {
   };
 };
 
+/**
+ * this function check the user
+ * @param {Object} schema The JOI schema, mandatory
+ * @return {Function} return a middleware function
+ */
 const User = schema => {
+  if (!schema || typeof schema !== "object") {
+    throw new Error(
+      "The schema parameter is required and must be a JOI object"
+    );
+  }
   return (req, res, next) => {
     schema.validate(
       req.user,
@@ -83,7 +138,12 @@ const User = schema => {
       err => {
         if (err) {
           return next(
-            errorHandler("Schema Validator", 400, err.details[0].message, err)
+            errorHandler(
+              400,
+              err.details[0].message,
+              { type: "User Schema Validator" },
+              err
+            )
           );
         }
         return next();
@@ -92,7 +152,17 @@ const User = schema => {
   };
 };
 
+/**
+ * this function check the headers
+ * @param {Object} schema The JOI schema, mandatory
+ * @return {Function} return a middleware function
+ */
 const Headers = schema => {
+  if (!schema || typeof schema !== "object") {
+    throw new Error(
+      "The schema parameter is required and must be a JOI object"
+    );
+  }
   return (req, res, next) => {
     schema.validate(
       req.headers,
@@ -102,7 +172,12 @@ const Headers = schema => {
       err => {
         if (err) {
           return next(
-            errorHandler("Schema Validator", 400, err.details[0].message, err)
+            errorHandler(
+              400,
+              err.details[0].message,
+              { type: "Headers Schema Validator" },
+              err
+            )
           );
         }
         return next();
@@ -111,7 +186,17 @@ const Headers = schema => {
   };
 };
 
+/**
+ * this function check the files
+ * @param {Object} schema The JOI schema, mandatory
+ * @return {Function} return a middleware function
+ */
 const Files = schema => {
+  if (!schema || typeof schema !== "object") {
+    throw new Error(
+      "The schema parameter is required and must be a JOI object"
+    );
+  }
   return (req, res, next) => {
     schema.validate(
       req.files,
@@ -121,7 +206,12 @@ const Files = schema => {
       err => {
         if (err) {
           return next(
-            errorHandler("Schema Validator", 400, err.details[0].message, err)
+            errorHandler(
+              400,
+              err.details[0].message,
+              { type: "Files Schema Validator" },
+              err
+            )
           );
         }
         return next();

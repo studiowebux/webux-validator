@@ -1,14 +1,24 @@
 {
   "name": "webux-validator",
   "version": "1.0.0",
-  "description": "Validate the content from the req",
+  "description": "Validate the content from the request",
   "main": "index.js",
+  "homepage": "https://github.com/studiowebux/webux-validator",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/studiowebux/webux-validator.git"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Studio Webux S.E.N.C",
   "license": "SEE LICENSE IN license.txt",
   "dependencies": {
-    "webux-errorhandler": "^1.1.0"
+    "webux-errorhandler": "^1.2.0"
+  },
+  "devDependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "joi": "^14.3.1"
   }
 }
