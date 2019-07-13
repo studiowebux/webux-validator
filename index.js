@@ -220,11 +220,46 @@ const Files = schema => {
   };
 };
 
+/**
+ * this function check a given object
+ * @param {Object} schema The JOI schema, mandatory
+ * @return {Function} return a function
+ */
+const Custom = schema => {
+  if (!schema || typeof schema !== "object") {
+    throw new Error(
+      "The schema parameter is required and must be a JOI object"
+    );
+  }
+  return (object) => {
+    schema.validate(
+      object,
+      {
+        allowUnknown: false
+      },
+      err => {
+        if (err) {
+          return next(
+            errorHandler(
+              400,
+              err.details[0].message,
+              { type: "Object Schema Validator" },
+              err
+            )
+          );
+        }
+        return next();
+      }
+    );
+  };
+};
+
 module.exports = {
   Body,
   User,
   MongoID,
   MongoIdOrURL,
   Headers,
-  Files
+  Files,
+  Custom
 };
