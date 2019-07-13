@@ -223,7 +223,7 @@ const Files = schema => {
 /**
  * this function check a given object
  * @param {Object} schema The JOI schema, mandatory
- * @return {Function} return a function
+ * @return {Promise} return a promise
  */
 const Custom = schema => {
   if (!schema || typeof schema !== "object") {
@@ -231,26 +231,32 @@ const Custom = schema => {
       "The schema parameter is required and must be a JOI object"
     );
   }
-  return (object) => {
-    schema.validate(
-      object,
-      {
-        allowUnknown: false
-      },
-      err => {
-        if (err) {
-          return next(
-            errorHandler(
-              400,
-              err.details[0].message,
-              { type: "Object Schema Validator" },
-              err
-            )
-          );
-        }
-        return next();
+  return object => {
+    return new Promise((resolve, reject) => {
+      try {
+        schema.validate(
+          object,
+          {
+            allowUnknown: false
+          },
+          err => {
+            if (err) {
+              return reject(
+                errorHandler(
+                  400,
+                  err.details[0].message,
+                  { type: "Object Schema Validator" },
+                  err
+                )
+              );
+            }
+            return resolve();
+          }
+        );
+      } catch (e) {
+        throw e;
       }
-    );
+    });
   };
 };
 
