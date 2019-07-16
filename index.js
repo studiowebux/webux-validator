@@ -250,7 +250,7 @@ const Custom = schema => {
                 )
               );
             }
-            return resolve();
+            return resolve(true);
           }
         );
       } catch (e) {
