@@ -225,39 +225,38 @@ const Files = schema => {
  * @param {Object} schema The JOI schema, mandatory
  * @return {Promise} return a promise
  */
-const Custom = schema => {
-  if (!schema || typeof schema !== "object") {
-    throw new Error(
-      "The schema parameter is required and must be a JOI object"
-    );
-  }
-  return object => {
-    return new Promise((resolve, reject) => {
-      try {
-        schema.validate(
-          object,
-          {
-            allowUnknown: false
-          },
-          err => {
-            if (err) {
-              return reject(
-                errorHandler(
-                  400,
-                  err.details[0].message,
-                  { type: "Object Schema Validator" },
-                  err
-                )
-              );
-            }
-            return resolve(true);
-          }
+const Custom = (schema, object) => {
+  return new Promise((resolve, reject) => {
+    try {
+      if (!schema || typeof schema !== "object") {
+        reject(
+          new Error("The schema parameter is required and must be a JOI object")
         );
-      } catch (e) {
-        throw e;
       }
-    });
-  };
+      schema.validate(
+        object,
+        {
+          allowUnknown: false
+        },
+        (error, value) => {
+          if (error) {
+            return reject(
+              errorHandler(
+                400,
+                error.details[0].message,
+                { type: "Object Schema Validator" },
+                error
+              )
+            );
+          }
+
+          return resolve(value);
+        }
+      );
+    } catch (e) {
+      throw e;
+    }
+  });
 };
 
 module.exports = {
