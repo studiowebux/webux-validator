@@ -210,7 +210,7 @@ const Files = schema => {
               400,
               err.details[0].message,
               { type: "Files Schema Validator" },
-              err
+              err.details
             )
           );
         }
