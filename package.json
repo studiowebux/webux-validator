@@ -1,6 +1,6 @@
 {
   "name": "webux-validator",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "Validate the content from the request",
   "main": "index.js",
   "homepage": "https://github.com/studiowebux/webux-validator",
