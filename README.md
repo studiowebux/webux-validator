@@ -5,7 +5,7 @@ This module is a wrapper around the Joi module.
 ## Installation
 
 ```bash
-npm i --save webux-validator
+npm i --save @studiowebux/validator
 ```
 
 ## Usage
@@ -53,7 +53,7 @@ module.exports = {
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
-const validator = require("webux-validator");
+const validator = require("@studiowebux/validator");
 const languageValidator = require("./validators/language");
 
 app.use(

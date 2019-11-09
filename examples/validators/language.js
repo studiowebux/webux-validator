@@ -14,7 +14,7 @@
 
 "use strict";
 
-const Joi = require("joi");
+const Joi = require("@hapi/joi");
 
 const Create = Joi.object().keys({
   language: {
@@ -27,7 +27,7 @@ const Create = Joi.object().keys({
 });
 
 const MongoID = Joi.string()
-  .regex(/^(?=[a-f\d]{24}$)(\d+[a-f]|[a-f]+\d)/i)
+  .pattern(/^(?=[a-f\d]{24}$)(\d+[a-f]|[a-f]+\d)/)
   .required();
 
 module.exports = {

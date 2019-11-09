@@ -56,4 +56,6 @@ app.use("*", (error, req, res, next) => {
   res.status(error.code).json(error);
 });
 
-app.listen(1337);
+app.listen(1337, ()=>{
+  console.log("server is listening on port 1337")
+});

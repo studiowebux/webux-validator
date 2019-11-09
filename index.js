@@ -14,7 +14,7 @@
 
 "use strict";
 
-const { errorHandler } = require("webux-errorhandler");
+const { errorHandler } = require("@studiowebux/errorhandler");
 
 /**
  * this function check the body
@@ -22,11 +22,6 @@ const { errorHandler } = require("webux-errorhandler");
  * @return {Function} return a middleware function
  */
 const Body = schema => {
-  if (!schema || typeof schema !== "object") {
-    throw new Error(
-      "The schema parameter is required and must be a JOI object"
-    );
-  }
   return (req, res, next) => {
     schema.validate(
       req.body,
@@ -56,11 +51,6 @@ const Body = schema => {
  * @return {Function} return a middleware function
  */
 const MongoID = schema => {
-  if (!schema || typeof schema !== "object") {
-    throw new Error(
-      "The schema parameter is required and must be a JOI object"
-    );
-  }
   return (req, res, next) => {
     schema.validate(
       req.params.id,
@@ -90,11 +80,6 @@ const MongoID = schema => {
  * @return {Function} return a middleware function
  */
 const MongoIdOrURL = schema => {
-  if (!schema || typeof schema !== "object") {
-    throw new Error(
-      "The schema parameter is required and must be a JOI object"
-    );
-  }
   return (req, res, next) => {
     schema.validate(
       req.params.id_url,
@@ -124,11 +109,6 @@ const MongoIdOrURL = schema => {
  * @return {Function} return a middleware function
  */
 const User = schema => {
-  if (!schema || typeof schema !== "object") {
-    throw new Error(
-      "The schema parameter is required and must be a JOI object"
-    );
-  }
   return (req, res, next) => {
     schema.validate(
       req.user,
@@ -158,11 +138,6 @@ const User = schema => {
  * @return {Function} return a middleware function
  */
 const Headers = schema => {
-  if (!schema || typeof schema !== "object") {
-    throw new Error(
-      "The schema parameter is required and must be a JOI object"
-    );
-  }
   return (req, res, next) => {
     schema.validate(
       req.headers,
@@ -192,11 +167,6 @@ const Headers = schema => {
  * @return {Function} return a middleware function
  */
 const Files = schema => {
-  if (!schema || typeof schema !== "object") {
-    throw new Error(
-      "The schema parameter is required and must be a JOI object"
-    );
-  }
   return (req, res, next) => {
     schema.validate(
       req.files,
@@ -228,17 +198,14 @@ const Files = schema => {
 const Custom = (schema, object) => {
   return new Promise((resolve, reject) => {
     try {
-      if (!schema || typeof schema !== "object") {
-        reject(
-          new Error("The schema parameter is required and must be a JOI object")
-        );
-      }
+      console.debug("Before");
       schema.validate(
         object,
         {
           allowUnknown: false
         },
         (error, value) => {
+          console.debug("Inside");
           if (error) {
             return reject(
               errorHandler(
@@ -254,6 +221,7 @@ const Custom = (schema, object) => {
         }
       );
     } catch (e) {
+      console.error(e);
       throw e;
     }
   });
