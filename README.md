@@ -4,6 +4,20 @@ This module is a wrapper around the Joi module.
 
 ## Installation
 
+### Linux
+
+```bash
+npm i --save @studiowebux/validator
+```
+
+### Windows
+
+```bash
+npm i --save @studiowebux/validator
+```
+
+### Mac
+
 ```bash
 npm i --save @studiowebux/validator
 ```
@@ -12,19 +26,60 @@ npm i --save @studiowebux/validator
 
 ### Available validators
 
-- Body (req.body)
-- MongoID (req.params.id)
-- MongoIdOrURL (req.params.id_url)
-- User (req.user)
-- Headers (req.headers)
-- Files (req.files)
+#### Body (req.body)
+
+```javascript
+Body(Schema)(req, res, next)=>{...};
+```
+
+#### MongoID (req.params.id)
+
+```javascript
+MongoID(Schema)(req, res, next)=>{...};
+```
+
+#### MongoIdOrURL (req.params.id_url)
+
+```javascript
+MongoIdOrURL(Schema)(req, res, next)=>{...};
+```
+
+#### User (req.user)
+
+```javascript
+User(Schema)(req, res, next)=>{...};
+```
+
+#### Headers (req.headers)
+
+```javascript
+Headers(Schema)(req, res, next)=>{...};
+```
+
+#### Files (req.files)
+
+```javascript
+Files(Schema)(req, res, next)=>{...};
+```
+
+#### Custom (object)
+
+```javascript
+Custom(Schema, object);
+```
+
+## Usage
 
 ### validator
 
-to know how to create a validator, check the Joi documentation,  
-validators/language.js
+To get more information about validator, please consult the Joi documentation,  
+Inside the **validators** directory,
 
-```
+#### validators/language.js
+
+A schema exemple for _Create_ and _MongoID_,
+
+```javascript
 const Joi = require("joi");
 
 const Create = Joi.object().keys({
@@ -49,60 +104,7 @@ module.exports = {
 
 ### example
 
-```
-const express = require("express");
-const app = express();
-const bodyParser = require("body-parser");
-const validator = require("@studiowebux/validator");
-const languageValidator = require("./validators/language");
-
-app.use(
-  bodyParser.json({
-    limit: "1mb"
-  })
-);
-app.use(
-  bodyParser.urlencoded({
-    limit: "1mb",
-    extended: true
-  })
-);
-
-/*
-req.body
-===
-{"language":{
-	"name":"french",
-	"shortcuts":["fr"],
-	"defaultValue":true
-}}
-*/
-app.post(
-  "/language",
-  validator.Body(languageValidator.Create),
-  (req, res, next) => {
-    res.status(201).json({ language: { text: "language 1" } });
-  }
-);
-
-//5cf0524c29b376c575e6005b
-app.get(
-  "/language/:id",
-  validator.MongoID(languageValidator.MongoID),
-  (req, res, next) => {
-    res.status(200).json({ language: { text: "language 1" } });
-  }
-);
-
-app.use("*", (error, req, res, next) => {
-  res.status(error.code).json(error);
-});
-
-app.listen(1337);
-
-```
-
-if you need more validators, create a pull request
+Check the /examples directory.
 
 ## Contributing
 

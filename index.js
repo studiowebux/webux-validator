@@ -17,7 +17,7 @@
 const { errorHandler } = require("@studiowebux/errorhandler");
 
 /**
- * this function check the body
+ * this function checks the body
  * @param {Object} schema The JOI schema, mandatory
  * @return {Function} return a middleware function
  */
@@ -46,7 +46,7 @@ const Body = schema => {
 };
 
 /**
- * this function check the params id
+ * this function checks the params id
  * @param {Object} schema The JOI schema, mandatory
  * @return {Function} return a middleware function
  */
@@ -75,7 +75,7 @@ const MongoID = schema => {
 };
 
 /**
- * this function check the params id_url to check if it is a valid URL or mongo ID
+ * this function checks the params id_url to check if it is a valid URL or mongo ID
  * @param {Object} schema The JOI schema, mandatory
  * @return {Function} return a middleware function
  */
@@ -104,7 +104,7 @@ const MongoIdOrURL = schema => {
 };
 
 /**
- * this function check the user
+ * this function checks the user
  * @param {Object} schema The JOI schema, mandatory
  * @return {Function} return a middleware function
  */
@@ -133,7 +133,7 @@ const User = schema => {
 };
 
 /**
- * this function check the headers
+ * this function checks the headers
  * @param {Object} schema The JOI schema, mandatory
  * @return {Function} return a middleware function
  */
@@ -162,7 +162,7 @@ const Headers = schema => {
 };
 
 /**
- * this function check the files
+ * this function checks the files
  * @param {Object} schema The JOI schema, mandatory
  * @return {Function} return a middleware function
  */
@@ -191,21 +191,19 @@ const Files = schema => {
 };
 
 /**
- * this function check a given object
+ * this function checks a given object
  * @param {Object} schema The JOI schema, mandatory
  * @return {Promise} return a promise
  */
 const Custom = (schema, object) => {
   return new Promise((resolve, reject) => {
     try {
-      console.debug("Before");
       schema.validate(
         object,
         {
           allowUnknown: false
         },
         (error, value) => {
-          console.debug("Inside");
           if (error) {
             return reject(
               errorHandler(
@@ -221,7 +219,6 @@ const Custom = (schema, object) => {
         }
       );
     } catch (e) {
-      console.error(e);
       throw e;
     }
   });
